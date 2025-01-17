@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+<body>
+    <h1 class="mainheading">
+        Weather app 
+    </h1> 
+    <!-- main heading -->
+
+        <!-- search engine  -->
+    <div id="searchengine">
+        <input type="text" id="searchbar" placeholder="Enter city name">
+        
+        <!-- search button -->
+        <button id="search-btn"><span class="material-symbols-outlined">
+            search
+            </span></button>
+    </div>
+
+    <!-- information container -->
+
+    <div class="container">
+        <!-- primary info  -->
+       <h2 class="cityname"></h1>
+
+        <img src="assets/clear.png" class="weather-icon" alt="icon">
+
+        <h1 class="temp"></h1>
+
+        <!-- secondary info  -->
+
+        <div class="secondaryinfo">
+            <!-- windspeed -->
+            <div class="windspeed">
+                <img src="assets/wind.png" class="wind-icon" alt="wind icon">
+                <p style="margin: 10px;">
+                    Wind speed
+                </p>
+                <p style="margin: 10px;">
+                    15km/h
+                </p>
+                
+            </div>
+
+            <!-- humidity -->
+            <div class="humidity">
+                <img src="assets/humidity.png" class="humidity-icon" alt="humidity icon"> <p style="margin: 10px;">
+            humidity
+                </p>
+                <p style="margin: 10px;">
+                 
+                </p>
+               
+            </div>
+
+
+        </div>
+
+        
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
