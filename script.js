@@ -10,6 +10,16 @@ searchbtn.addEventListener("click",()=>{
     getWeatherData(searchbar.value);
 });
 
+function convertUnixToTime(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  
+  // Format hours and minutes with AM/PM
+  const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${hours >= 12 ? 'PM' : 'AM'}`;
+  return formattedTime;
+}
+
 
 // api key and api url 
 
@@ -36,7 +46,7 @@ async function getWeatherData(city){
         // updating humidity
 
 
-        document.querySelector(".windspeed").lastElementChild.innerHTML=data.wind.speed+"km/h";
+        document.querySelector(".windspeed").lastElementChild.innerHTML=data.wind.speed+"m/s";
         // updating humidity
 
         document.querySelector(".feelslike").innerHTML="Feels like:"+data.main.feels_like+"°C";
@@ -93,5 +103,11 @@ document.querySelector(".visibility").innerHTML="Visibility:"+data.visibility/10
     document.querySelector(".cloudiness").lastElementChild.innerHTML=data.clouds.all+"%";
     document.querySelector(".sealevel").lastElementChild.innerHTML=parseFloat(((data.main.sea_level)* 0.000986923).toFixed(3)) +"atm";
     document.querySelector(".pressure").lastElementChild.innerHTML=parseFloat(((data.main.pressure)* 0.000986923).toFixed(3)) +"atm";
+    document.querySelector(".sunrise").lastElementChild.innerHTML=convertUnixToTime(data.sys.sunrise);
+    document.querySelector(".sunset").lastElementChild.innerHTML=convertUnixToTime(data.sys.sunset);
+    document.querySelector(".winddirection").lastElementChild.innerHTML=data.wind.deg+"° to the North";
+
+
+
 }
 // getWeatherData("delhi");
