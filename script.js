@@ -63,40 +63,97 @@ document.querySelector(".visibility").innerHTML="Visibility:"+data.visibility/10
     switch (data.weather[0].main) {
         case "Mist":
             document.querySelector(".weather-icon").attributes[0].value="assets/mist.png";
+
+            document.querySelector(".video-background").firstElementChild.src="assets/vecteezy_mist-moving-between-the-trees-ariel-view-rainy-weather-in_49318339.mp4"
+
+            document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
+            break;
+        case "Smoke":
+            document.querySelector(".weather-icon").attributes[0].value="assets/mist.png";
+
+            document.querySelector(".video-background").firstElementChild.src="assets/vecteezy_mist-moving-between-the-trees-ariel-view-rainy-weather-in_49318339.mp4"
+
+            document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
 
         case "Clouds":
             document.querySelector(".weather-icon").attributes[0].value="assets/clouds.png";
+
+            document.querySelector(".video-background").firstElementChild.src="assets/clody.mp4"
+
+            document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;      
         case "Fog":
             document.querySelector(".weather-icon").attributes[0].value="assets/clouds.png";
+
+            document.querySelector(".video-background").firstElementChild.src="assets/foggy.mp4"
+
+            document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break; 
             
         case "Haze":
             document.querySelector(".weather-icon").attributes[0].value="assets/clouds.png";
+
+              document.querySelector(".video-background").firstElementChild.src="assets/haze.mp4"
+
+              document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
 
         case "Rain":
             document.querySelector(".weather-icon").attributes[0].value="assets/rain.png";
+
+              document.querySelector(".video-background").firstElementChild.src="assets/rainy.mp4"
+
+              document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
         case "Thunderstorm":
             document.querySelector(".weather-icon").attributes[0].value="assets/rain.png";
+
+              document.querySelector(".video-background").firstElementChild.src="assets/thunderstorm.mp4"
+
+              document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
 
         case "Clear":
             document.querySelector(".weather-icon").attributes[0].value="assets/clear.png";
+
+              document.querySelector(".video-background").firstElementChild.src="assets/clear sky.mp4"
+
+              document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
 
         case "Snow":
             document.querySelector(".weather-icon").attributes[0].value="assets/snow.png";
+
+              document.querySelector(".video-background").firstElementChild.src="assets/snow.mp4"
+
+              document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
 
             case "Drizzle":
             document.querySelector(".weather-icon").attributes[0].value="assets/drizzle.png";
+
+              document.querySelector(".video-background").firstElementChild.src="assets/drizzleved.mp4"
+
+              document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
     
         default:
             document.querySelector(".weather-icon").hidden=true;
+              document.querySelector(".video-background").firstElementChild.src="assets/clody.mp4"
+              
+              document.querySelector(".video-background").load();
+            document.querySelector(".video-background").play();
             break;
     }
 

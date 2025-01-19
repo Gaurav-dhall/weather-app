@@ -68,7 +68,7 @@ body{
     border-bottom-right-radius: 25px;
     border-bottom-left-radius: 25px;
     /* filter: brightness(0.5); */
-    filter: opacity(0.50) contrast(125%);
+    filter: opacity(0.30) contrast(125%);
     /* filter: contrast(1.5); */
   }
   
