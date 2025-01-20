@@ -10,26 +10,87 @@ searchbtn.addEventListener("click",()=>{
     getWeatherData(searchbar.value);
 });
 
-function convertUnixToTime(unixTimestamp) {
-  const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+function convertUnixToTime(unixTimestamp, apiTimezoneOffset) {
+  // Browser's timezone offset (in minutes)
+  const browserTimezoneOffset = new Date().getTimezoneOffset(); // In minutes
+  console.log('browser time in min'+browserTimezoneOffset);
   
-  // Format hours and minutes with AM/PM
-  const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${hours >= 12 ? 'PM' : 'AM'}`;
-  return formattedTime;
+
+  // Convert API offset from seconds to minutes
+  const apiTimezoneOffsetInMinutes = apiTimezoneOffset / 60;
+
+  console.log('api time in min'+apiTimezoneOffsetInMinutes);
+
+  // Check if the location is current
+  const isCurrentLocation = browserTimezoneOffset === -apiTimezoneOffsetInMinutes;
+
+  console.log('is current location'+isCurrentLocation);
+  console.log('unix time '+unixTimestamp);
+  console.log('api time in sec',apiTimezoneOffset)  
+  
+
+  // Calculate the time
+  const date = isCurrentLocation
+    ? new Date(unixTimestamp * 1000) // Use local system time //already time is according to locations time zone as offset is automatically added
+    : new Date((unixTimestamp + apiTimezoneOffset+(browserTimezoneOffset*60)) * 1000); // Use API timezone // ofset needs to be added to unix time still time is consolled as browsers location's time zon so browsers time zone offset needs to be added
+
+    console.log(date);
+    
+
+  // Format the time
+  return date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // 12-hour format
+  });
 }
+
+
 
 
 // api key and api url 
 
 async function getWeatherData(city){
     // fetching data from open weather api 
-    
+
+      try {
         const response=await fetch(apiurl+city+`&appid=${apikey}`);
-        // fetching api 
+
+        if(!response.ok){
+          document.querySelector(".container").style.display="none";
+          document.querySelector(".welcomemsg").style.display="flex";
+  
+          if(response.status===404){
+            throw new Error('City not found. Please enter a valid city name.');
+            
+          }
+          else{
+            throw new Error(`HTTP Error: ${response.status} - ${response.statusText}`);
+          }
+        }
+        
         var data=await response.json();
         console.log(data);
+        document.querySelector(".container").style.display="flex";
+     
+        document.querySelector(".welcomemsg").style.display="none";
+        
+      } catch (error) {
+       
+        if (error.message === 'Failed to fetch') {
+          // Network/Internet connection error
+          alert('Network error. Please check your internet connection and try again.');
+      } else {
+          // Display other error messages
+          alert(error.message);
+      }
+      console.error('Error:', error.message);
+        
+      }
+    
+        
+        // fetching api 
+       
 
         document.querySelector(".container").style.display="flex";
      
@@ -160,8 +221,8 @@ document.querySelector(".visibility").innerHTML="Visibility:"+data.visibility/10
     document.querySelector(".cloudiness").lastElementChild.innerHTML=data.clouds.all+"%";
     document.querySelector(".sealevel").lastElementChild.innerHTML=parseFloat(((data.main.sea_level)* 0.000986923).toFixed(3)) +"atm";
     document.querySelector(".pressure").lastElementChild.innerHTML=parseFloat(((data.main.pressure)* 0.000986923).toFixed(3)) +"atm";
-    document.querySelector(".sunrise").lastElementChild.innerHTML=convertUnixToTime(data.sys.sunrise);
-    document.querySelector(".sunset").lastElementChild.innerHTML=convertUnixToTime(data.sys.sunset);
+    document.querySelector(".sunrise").lastElementChild.innerHTML=convertUnixToTime(data.sys.sunrise,data.timezone);
+    document.querySelector(".sunset").lastElementChild.innerHTML=convertUnixToTime(data.sys.sunset,data.timezone);
     document.querySelector(".winddirection").lastElementChild.innerHTML=data.wind.deg+"° to the North";
 
 
